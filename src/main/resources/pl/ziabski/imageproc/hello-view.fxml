@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.ziabski.imageproc.HelloController">
+<TabPane fx:id="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.ziabski.imageproc.HelloController">
     <tabs>
         <Tab closable="false" text="Wczytywanie i podgląd obrazu">
             <content>
@@ -15,7 +15,7 @@
                     </padding>
                     <HBox alignment="TOP_RIGHT">
                         <children>
-                            <Button onAction="#onHelloButtonClick" text="Load image" />
+                            <Button onAction="#onImageLoad" text="Load image" />
                         </children>
                     </HBox>
                     <ImageView fx:id="imageView" visible="false" />
@@ -25,16 +25,9 @@
                 </VBox>
             </content>
         </Tab>
-        <Tab closable="false" text="Histogram">
+        <Tab closable="false" text="Histogram" fx:id="histogram" >
             <content>
-                <VBox alignment="TOP_CENTER" spacing="20.0">
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                    <opaqueInsets>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </opaqueInsets>
-                </VBox>
+
             </content>
         </Tab>
     </tabs>
