@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane fx:id="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.ziabski.imageproc.HelloController">
+<TabPane fx:id="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.ziabski.imageproc.ImageController">
     <tabs>
         <Tab closable="false" text="Wczytywanie i podgląd obrazu">
             <content>
@@ -26,8 +26,15 @@
             </content>
         </Tab>
         <Tab closable="false" text="Histogram" fx:id="histogram" >
+        </Tab>
+        <Tab closable="false" text="Progowanie">
             <content>
-
+                <HBox alignment="CENTER">
+                    <children>
+                        <ImageView></ImageView>
+                        <ImageView></ImageView>
+                    </children>
+                </HBox>
             </content>
         </Tab>
     </tabs>

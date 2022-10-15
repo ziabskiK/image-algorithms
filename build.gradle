@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'pl.ziabski.imageproc'
-    mainClass = 'pl.ziabski.imageproc.HelloApplication'
+    mainClass = 'pl.ziabski.imageproc.ImageApplication'
 }
 
 [compileKotlin, compileTestKotlin].forEach {
