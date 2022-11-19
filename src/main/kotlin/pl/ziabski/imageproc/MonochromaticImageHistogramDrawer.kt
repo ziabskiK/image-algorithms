@@ -20,8 +20,15 @@ class MonochromaticImageHistogramDrawer: HistogramDrawer {
         }
         val drawGrayscaleHistogram = drawGrayscaleHistogram(histogramData)
 
-        tab.content = drawGrayscaleHistogram;
+        tab.content = drawGrayscaleHistogram
     }
+
+    override fun draw(tab: Tab, lut: IntArray) {
+        val drawGrayscaleHistogram = drawGrayscaleHistogram(lut)
+
+        tab.content = drawGrayscaleHistogram
+    }
+
 
     private fun drawGrayscaleHistogram(histogramData: IntArray): Parent {
         val xAxis = CategoryAxis()
