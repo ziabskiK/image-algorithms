@@ -6,6 +6,7 @@ plugins {
     id 'org.beryx.jlink' version '2.25.0'
 }
 
+applicationDefaultJvmArgs = ["-Djava.library.path=/opt/homebrew/Cellar/opencv/4.6.0_1/share/java/opencv4"]
 group 'pl.ziabski'
 version '1.0-SNAPSHOT'
 
@@ -14,11 +15,11 @@ repositories {
 }
 
 ext {
-    junitVersion = '5.8.2'
+    junitVersion = '5.9.0'
 }
 
-sourceCompatibility = '11'
-targetCompatibility = '11'
+sourceCompatibility = '18'
+targetCompatibility = '18'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -31,7 +32,7 @@ application {
 
 [compileKotlin, compileTestKotlin].forEach {
     it.kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '18'
     }
 }
 
@@ -43,6 +44,7 @@ javafx {
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    implementation("org.bytedeco:opencv:4.6.0-1.5.8")
 }
 
 test {

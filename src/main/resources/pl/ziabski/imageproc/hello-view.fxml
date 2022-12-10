@@ -1,58 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
 
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.canvas.Canvas?>
-<TabPane fx:id="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.ziabski.imageproc.ImageController">
-    <tabs>
-        <Tab closable="false" text="Wczytywanie i podgląd obrazu">
-            <content>
-                <VBox alignment="TOP_CENTER" spacing="20.0">
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                    <HBox alignment="TOP_RIGHT">
-                        <children>
-                            <Button onAction="#onImageLoad" text="Load image" />
+<VBox fx:id="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <MenuBar>
+        <Menu text="Obraz">
+            <MenuItem text="Importuj" onAction="#onImageLoad"/>
+            <MenuItem text="Duplikuj" onAction="#duplicate"/>
+        </Menu>
+        <Menu text="Histogram">
+            <MenuItem text="8-bit" onAction="#show8BitHistogram"/>
+            <MenuItem text="24-bit" onAction="#show24BitHistogram"/>
+            <MenuItem text="Wyrównanie" onAction="#wyrownanieHistogramu"/>
+            <MenuItem text="Rozciąganie" onAction="#rozciagnijhistogramGUI"/>
+        </Menu>
+        <Menu text="Operacje jednopunktowe">
+            <MenuItem text="Negacja" onAction="#negation"/>
+            <MenuItem text="Progowanie (binaryzacja)" onAction="#showThresholdOptions"/>
+            <MenuItem text="Progowanie z zachowaniem poziomu szarości" onAction="#showThresholdOptionsWithLevels"/>
+            <MenuItem text="Gamma" onAction="#showGammaStretchingThresholdTextField"/>
+            <MenuItem text="Dodawanie liczby całkowitej" onAction="#addConstant"/>
+            <MenuItem text="Odejmowanie liczby całkowitej" onAction="#subtractConstant"/>
+            <MenuItem text="Mnożenie przez liczbę całkowitą" onAction="#multiplyByConstant"/>
+        </Menu>
+        <Menu text="Operacje logiczne">
+            <MenuItem text="AND" onAction="#andBitOperation"/>
+            <MenuItem text="OR" onAction="#orBitOperation"/>
+            <MenuItem text="XOR" onAction="#xorBitOperation"/>
+        </Menu>
+        <Menu text="Operacje wieloargumentowe">
+            <MenuItem text="Dodawanie obrazów" onAction="#addImageWysycenie"/>
+            <MenuItem text="Dodawanie obrazów (bez wysycenia)" onAction="#addImage"/>
+            <MenuItem text="Odejmowanie obrazów" onAction="#subtractImage"/>
+            <MenuItem text="Mnożenie obrazów" onAction="#multiplyImages"/>
+        </Menu>
+        <Menu text="Filtracja">
+            <MenuItem text="Średnia" onAction="#blur"/>
+            <MenuItem text="Mediana" onAction="#median"/>
+            <MenuItem text="Gauss" onAction="#gauss"/>
+            <MenuItem text="Sharpening" onAction="#sharpening"/>
+            <MenuItem text="EdgeDetection" onAction="#edgeDetection"/>
+        </Menu>
+    </MenuBar>
+    <Canvas fx:id="canvas" width="600" height="600"/>
+<!--    <HBox>-->
+<!--        <Button text="+" onAction="#enlargeImage"></Button>-->
+<!--        <Button text="-" onAction="#smallerImage"></Button>-->
+<!--    </HBox>-->
 
-                        </children>
-                    </HBox>
-                    <HBox>
-                        <children>
-                            <Canvas fx:id="canvas" width="600" height="600"/>
+</VBox>
+        <!--<TabPane fx:id="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.ziabski.imageproc.ImageController">-->
+        <!--    -->
+        <!--    <tabs>-->
+        <!--        <Tab closable="false" text="Wczytywanie i podgląd obrazu">-->
+        <!--            <content>-->
+        <!--                <VBox alignment="TOP_CENTER" spacing="20.0">-->
+        <!--                    <padding>-->
+        <!--                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />-->
+        <!--                    </padding>-->
+        <!--                    <HBox alignment="TOP_RIGHT">-->
+        <!--                        <children>-->
+        <!--                            <Button onAction="#onImageLoad" text="Load image" />-->
 
-                            <Button onAction="#smallerImage" text="-"/>
-                            <Button onAction="#enlargeImage" text="+"/>
-                            <TextField onAction="#changeThreshold" text="Threshold" fx:id="thresholdTF"/>
-                            <TextField onAction="#gammaStretching" text="Gamma stretchinf" fx:id="gammaStretchingTF"/>
-                            <Button onAction="#wyrownanieHistogramu" text="Histogram equalization"/>
-                            <TextField  text="Min" fx:id="minHist"/>
-                            <TextField  text="Max" fx:id="maxHist"/>
-                            <Button onAction="#rozciagnijHist" text="Histogram stretching"/>
-                        </children>
-                    </HBox>
-                    <Button text="Negation" onAction="#negation"></Button>
-<!--                    <ImageView fx:id="imageView" visible="false" />-->
-                    <opaqueInsets>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </opaqueInsets>
-                </VBox>
-            </content>
-        </Tab>
-        <Tab closable="false" text="Histogram" fx:id="histogram" >
-        </Tab>
-        <Tab closable="false" text="Progowanie">
-            <content>
-                <HBox alignment="CENTER">
-                    <children>
-                        <ImageView></ImageView>
-                        <ImageView></ImageView>
-                    </children>
-                </HBox>
-            </content>
-        </Tab>
-    </tabs>
-</TabPane>
+        <!--                        </children>-->
+        <!--                    </HBox>-->
+        <!--                    <HBox>-->
+        <!--                        <children>-->
+
+        <!--                            <Button onAction="#smallerImage" text="-"/>-->
+        <!--                            <Button onAction="#enlargeImage" text="+"/>-->
+        <!--                            <TextField onAction="#changeThreshold" text="Threshold" fx:id="thresholdTF"/>-->
+        <!--                            <TextField onAction="#gammaStretching" text="Gamma stretchinf" fx:id="gammaStretchingTF"/>-->
+        <!--                            <Button onAction="#wyrownanieHistogramu" text="Histogram equalization"/>-->
+        <!--                            <TextField  text="Min" fx:id="minHist"/>-->
+        <!--                            <TextField  text="Max" fx:id="maxHist"/>-->
+        <!--                            <Button onAction="#rozciagnijHist" text="Histogram stretching"/>-->
+        <!--                        </children>-->
+        <!--                    </HBox>-->
+        <!--                    <Button text="Negation" onAction="#negation"></Button>-->
+        <!--&lt;!&ndash;                    <ImageView fx:id="imageView" visible="false" />&ndash;&gt;-->
+        <!--                    <opaqueInsets>-->
+        <!--                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />-->
+        <!--                    </opaqueInsets>-->
+        <!--                </VBox>-->
+        <!--            </content>-->
+        <!--        </Tab>-->
+        <!--        <Tab closable="false" text="Histogram" fx:id="histogram" >-->
+        <!--        </Tab>-->
+        <!--        <Tab closable="false" text="Progowanie">-->
+        <!--            <content>-->
+        <!--                <HBox alignment="CENTER">-->
+        <!--                    <children>-->
+        <!--                        <ImageView></ImageView>-->
+        <!--                        <ImageView></ImageView>-->
+        <!--                    </children>-->
+        <!--                </HBox>-->
+        <!--            </content>-->
+        <!--        </Tab>-->
+        <!--    </tabs>-->
+        <!--</TabPane>-->

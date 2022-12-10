@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.canvas.Canvas?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0" >
+    <VBox style="-fx-padding: 20;">
+        <Canvas fx:id="histogramCanvas"/>
+        <HBox minHeight="0">
+            <Label text="0" fx:id="leftLabel" alignment="BASELINE_LEFT"/>
+            <Label text="255" fx:id="rightLabel" alignment="BASELINE_RIGHT"/>
+        </HBox>
+        <HBox spacing="20">
+            <TextField text="Min" fx:id="histogramMin"/>
+            <TextField text="Max" fx:id="histogramMax"/>
+            <Button text="Ustaw progi" onAction="#setHistogramStretching"></Button>
+        </HBox>
+    </VBox>
+</AnchorPane>

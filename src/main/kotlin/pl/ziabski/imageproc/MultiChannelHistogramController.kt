@@ -1,58 +1,39 @@
 package pl.ziabski.imageproc
 
+import javafx.fxml.FXML
 import javafx.geometry.Pos
 import javafx.scene.canvas.Canvas
-import javafx.scene.control.Tab
+import javafx.scene.control.Label
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import javafx.scene.text.Text
 import java.awt.image.BufferedImage
 
-class MultiChannelImageHistogramDrawer : HistogramDrawer {
+class MultiChannelHistogramController {
     private val colorArar = arrayOf(Color.RED, Color.GREEN, Color.BLUE)
     private val colorArarText = arrayOf("RED", "GREEN", "BLUE")
 
-    override fun draw(tab: Tab, image: BufferedImage) {
+    @FXML
+    private lateinit var vBox: VBox
+
+    fun draw(image: BufferedImage) {
         val calculatePixelsForColors = calculatePixelsForColor(image)
-        val hBox = HBox()
         for ((withIndex, value) in calculatePixelsForColors.withIndex()) {
             val canvas = drawHistogramUsingCanvas(value, colorArar[withIndex])
-            val startAxisLabel = VBox(
-                Text("0")
-            )
-            startAxisLabel.isFillWidth = true
-            startAxisLabel.alignment = Pos.BASELINE_LEFT
-            val endAxisLabel = VBox(
-                Text("255")
-            )
-            endAxisLabel.isFillWidth = true
-            endAxisLabel.alignment = Pos.BASELINE_RIGHT
-            val labels = HBox(
-                startAxisLabel,
-                endAxisLabel
-            )
-
-
-            val vBox = VBox(
-                canvas,
-                labels
-            )
-            vBox.isFillWidth = true
-            hBox.children.add(
-                VBox(
-                    Text(colorArarText[withIndex]),
-                    vBox
-                )
-            )
+            vBox.children.add(Text(colorArarText[withIndex]))
+            vBox.children.add(canvas)
+            val text0 = Label("0")
+            text0.alignment = Pos.BASELINE_LEFT
+            text0.minWidth(canvas.width / 2)
+            val text255 = Label("255")
+            text255.alignment = Pos.BASELINE_LEFT
+            text255.minWidth(canvas.width / 2)
+            val hBox = HBox(text0, text255)
+            hBox.minHeight = 0.0
+            vBox.children.add(hBox)
         }
 
-        hBox.spacing = 5.0
-        tab.content = hBox
-    }
-
-    override fun draw(tab: Tab, lut: IntArray) {
-        TODO("Not yet implemented")
     }
 
     private fun calculatePixelsForColor(image: BufferedImage): Array<IntArray> {
